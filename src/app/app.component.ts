@@ -22,14 +22,24 @@ export class AppComponent {
 
   register() {
     this.authService.signUp(this.registerEmail, this.registerPassword)
-      .then(user => console.log('Registered:', user))
+      .then(user => {
+        console.log('Registered:', user)
+        this.authService.registerBackend().subscribe(
+          res => console.log('Backend registration:', res),
+          err => console.error(err)
+        );
+      })
       .catch(err => console.error(err));
   }
 
   signIn() {
     this.authService.signIn(this.loginEmail, this.loginPassword)
-      .then(user => console.log('Signed in:', user))
+      .then(user => {
+        console.log('Signed in:', user);
+      })
       .catch(err => console.error(err));
+
+
   }
 
   signOut() {
@@ -40,5 +50,12 @@ export class AppComponent {
     this.authService.signInWithGoogle()
       .then(user => console.log('Google sign-in:', user))
       .catch(err => console.error(err));
+  }
+
+  goToPrivateInfo() {
+    this.authService.getProfile().subscribe(
+      res => console.log('Private info:', res),
+      err => console.error(err)
+    );
   }
 }
