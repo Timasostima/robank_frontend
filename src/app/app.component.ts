@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {FormsModule} from '@angular/forms';
+import {lastValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,11 +24,13 @@ export class AppComponent {
   register() {
     this.authService.signUp(this.registerEmail, this.registerPassword)
       .then(user => {
-        console.log('Registered:', user)
-        this.authService.registerBackend().subscribe(
-          res => console.log('Backend registration:', res),
-          err => console.error(err)
-        );
+        console.log('succesfuly registered in firebase:', user);
+        let usrObj = {
+          uid: user.user.uid,
+          email: user.user.email,
+          name: user.user.displayName || "alex",
+        };
+        return this.authService.registerBackend(usrObj);
       })
       .catch(err => console.error(err));
   }
@@ -38,8 +41,6 @@ export class AppComponent {
         console.log('Signed in:', user);
       })
       .catch(err => console.error(err));
-
-
   }
 
   signOut() {

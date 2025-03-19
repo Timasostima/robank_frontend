@@ -3,6 +3,7 @@ import {HttpInterceptorFn} from '@angular/common/http';
 import {Observable, from} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {AuthService} from '../services/auth.service';
+import {environment} from '../environments/environment';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
@@ -10,13 +11,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Para los endpoints que no requieren autenticación
   const publicUrls = [
-    '/api/token/',
-    '/api/register/',
+    '/api/user/register',
   ];
 
-  if (publicUrls.some(url => req.url.includes(url))) {
+  if (publicUrls.some(url => req.url.includes(environment.apiUrl + url))) {
+    console.log('Public URL:', req.url);
     return next(req);
   }
+  console.log('Private URL:', req.url);
 
   return from(authService.getToken()).pipe(
     switchMap(token => {

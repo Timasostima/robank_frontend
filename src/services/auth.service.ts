@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, authState, User } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import {lastValueFrom, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -42,8 +42,7 @@ export class AuthService {
     return user ? await user.getIdToken() : null;
   }
 
-  registerBackend() {
-    console.log('registerBackend');
-    return this.http.post(`http://localhost:8080/api/user/register`, {});
+  registerBackend(user: any): Promise<any> {
+    return lastValueFrom(this.http.post(`http://localhost:8080/api/user/register`, user));
   }
 }
