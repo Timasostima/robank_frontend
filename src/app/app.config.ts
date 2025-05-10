@@ -4,9 +4,9 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {getAuth, provideAuth} from '@angular/fire/auth';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
-import {environment} from '../environments/environment';
 import { provideHttpClient, withInterceptors} from '@angular/common/http';
-import {authInterceptor} from '../interceptors/auth.interceptor';
+import {environment} from './core/environments/environment';
+import {authInterceptor} from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

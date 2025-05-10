@@ -1,25 +1,29 @@
 import {Component, inject} from '@angular/core';
-import {AuthService} from '../services/auth.service';
 import {FormsModule} from '@angular/forms';
-import {lastValueFrom} from 'rxjs';
+import {RouterOutlet} from '@angular/router';
+import {AuthService} from './core/services/auth.service';
+import {FooterComponent} from './shared/footer/footer.component';
+import {NavbarComponent} from './shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    RouterOutlet,
+    FooterComponent,
+    NavbarComponent
   ],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
   private authService = inject(AuthService);
 
-  // constructor(private authService: AuthService) {
-  // }
   registerEmail: string = '';
   registerPassword: string = '';
   loginEmail: string = '';
   loginPassword: string = '';
+  title: string = 'robankWeb';
 
   register() {
     this.authService.signUp(this.registerEmail, this.registerPassword)
