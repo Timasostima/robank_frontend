@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /*min-height: 100vh;*/
   padding: 32px 16px;
   background-color: var(--background);
 }
@@ -31,4 +32,66 @@
 
 .input-container {
   position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.forgot-password {
+  text-align: right;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.divider-line {
+  flex-grow: 1;
+  border-top: 1px solid #374151;
+}
+
+.divider-text {
+  margin: 0 16px;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.social-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #374151;
+  border-radius: 50px;
+  background: none;
+  color: var(--on-surface);
+  cursor: pointer;
+}
+
+.social-icon {
+  font-size: 18px;
+  width: 30px;
+  height: 18px;
+  display: inline-block;
+  text-align: center;
+  line-height: 18px;
+  vertical-align: middle;
+}
+.register-prompt {
+  text-align: center;
+}
+
+.error-input {
+  border-color: #ef4444;
 }

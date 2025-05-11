@@ -4,23 +4,33 @@
       <img src="Robank_Logo.png" alt="Robank Logo" class="logo" />
     </div>
 
-    <form [formGroup]="loginForm" class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <div class="input-container">
         <input
           type="email"
           formControlName="email"
           placeholder="email"
           class="input-field"
+          [ngClass]="{'error-input': submitted && f['email'].errors}"
         />
       </div>
 
       <div class="input-container">
         <input
-          [type]="'text'"
+          [type]="showPassword ? 'text' : 'password'"
           formControlName="password"
           placeholder="password"
           class="input-field"
+          [ngClass]="{'error-input': submitted && f['password'].errors}"
         />
+        <button
+          type="button"
+          (click)="togglePasswordVisibility()"
+          class="password-toggle"
+        >
+          <span *ngIf="!showPassword" class="material-symbols-outlined">visibility</span>
+          <span *ngIf="showPassword" class="material-symbols-outlined">visibility_off</span>
+        </button>
       </div>
 
       <div class="forgot-password">
@@ -30,6 +40,22 @@
       <button type="submit" class="btn-primary">
         Log In
       </button>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text">or</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <button type="button" class="social-login" (click)="LoginGoogle()">
+        <i class="fa-brands fa-google social-icon"></i>
+        Continue with Google
+      </button>
+
+      <div class="register-prompt">
+        <span class="text-gray">Don't have an account yet? </span>
+        <a routerLink="/register" class="text-primary">Sign Up!</a>
+      </div>
     </form>
   </div>
 </div>
