@@ -1,0 +1,69 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="header">
+      <button (click)="goBack()" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <div class="logo-container">
+        <img src="Robank_Logo.png" alt="Robank Logo" class="logo" />
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <div class="input-container">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="email"
+          class="input-field"
+          [ngClass]="{'error-input': submitted && f['email'].errors}"
+        />
+      </div>
+
+      <div class="input-container">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="password"
+          class="input-field"
+          [ngClass]="{'error-input': submitted && f['password'].errors}"
+        />
+        <button
+          type="button"
+          (click)="togglePasswordVisibility()"
+          class="password-toggle"
+        >
+          <span *ngIf="!showPassword" class="material-symbols-outlined">visibility</span>
+          <span *ngIf="showPassword" class="material-symbols-outlined">visibility_off</span>
+        </button>
+      </div>
+
+      <div class="terms-container">
+        <label class="toggle-container">
+          <input
+            type="checkbox"
+            formControlName="acceptTerms"
+            class="sr-only"
+          />
+          <div class="toggle-track"></div>
+          <div
+            [ngClass]="{'active': f['acceptTerms'].value}"
+            class="toggle-thumb"
+          ></div>
+        </label>
+        <span class="terms-text">I Accept the <a routerLink="/terms" class="terms-link">Terms and Conditions</a></span>
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="signupForm.invalid"
+      >
+        Sign Up
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /*min-height: 100vh;*/
+  padding: 32px 16px;
+  background-color: var(--background);
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.back-button {
+  color: #9ca3af;
+  background: none;
+  border: none;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.logo-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+}
+
+.spacer {
+  width: 40px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.terms-container {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-track {
+  width: 40px;
+  height: 24px;
+  background-color: #374151;
+  border-radius: 50px;
+  transition: background-color 300ms;
+}
+.toggle-track:has(+ .toggle-thumb.active) {
+  background-color: var(--primary);
+  opacity: 0.3;
+  transition: background-color 300ms;
+}
+
+.toggle-thumb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  left: 4px;
+  top: 4px;
+  transition: transform 150ms, background-color 300ms;
+}
+
+.toggle-thumb.active {
+  transform: translateX(16px);
+  background-color: var(--primary);
+  transition: transform 150ms, background-color 300ms;
+}
+
+.terms-text {
+  margin-left: 12px;
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.terms-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.error-input {
+  border-color: #ef4444;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
