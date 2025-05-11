@@ -1,0 +1,16 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  background-image: url('../../../../public/crack2.png');
+  background-repeat: repeat no-repeat;
+  background-size: contain;
+}
+
+img {
+  width: 100%;
+  max-width: 600px;
+  padding-bottom: 10rem;
+}
