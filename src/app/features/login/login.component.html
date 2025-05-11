@@ -1,0 +1,35 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo-container">
+      <img src="Robank_Logo.png" alt="Robank Logo" class="logo" />
+    </div>
+
+    <form [formGroup]="loginForm" class="login-form">
+      <div class="input-container">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="email"
+          class="input-field"
+        />
+      </div>
+
+      <div class="input-container">
+        <input
+          [type]="'text'"
+          formControlName="password"
+          placeholder="password"
+          class="input-field"
+        />
+      </div>
+
+      <div class="forgot-password">
+        <a routerLink="/auth/forgot-password" class="text-primary">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Log In
+      </button>
+    </form>
+  </div>
+</div>

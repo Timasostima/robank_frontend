@@ -1,15 +1,1 @@
-<div>
-  <h2>Register</h2>
-  <input type="email" placeholder="Email" [(ngModel)]="registerEmail">
-  <input type="password" placeholder="Password" [(ngModel)]="registerPassword">
-  <button (click)="register()">Register</button>
-</div>
-<div>
-  <h2>Login</h2>
-  <input type="email" placeholder="Email" [(ngModel)]="loginEmail">
-  <input type="password" placeholder="Password" [(ngModel)]="loginPassword">
-  <button (click)="signIn()">Sign In</button>
-</div>
-<button (click)="signOut()">Sign Out</button>
-<button (click)="signInWithGoogle()">Sign In with Google</button>
-<button (click)="goToPrivateInfo()">Sign In with Facebook</button>
+<router-outlet></router-outlet>

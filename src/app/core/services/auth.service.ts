@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, authState, User } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword} from '@angular/fire/auth';
 import {lastValueFrom, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
@@ -9,18 +9,16 @@ import {HttpClient} from '@angular/common/http';
 export class AuthService {
   private auth = inject(Auth);
   private http = inject(HttpClient);
+  private BASE_URL = 'http://localhost:8080/user';
 
-  // Sign in with email & password
-  signIn(email: string, password: string) {
+  logIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  // Sign up with email & password
-  signUp(email: string, password: string) {
+  register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  // Sign out
   signOut() {
     return signOut(this.auth);
   }
@@ -32,7 +30,8 @@ export class AuthService {
   }
 
   getProfile(): Observable<any> {
-    return this.http.get(`http://localhost:8080/api/user/profile`);
+    const url = `${this.BASE_URL}/profile`;
+    return this.http.get(url);
   }
 
   // Fetch Firebase JWT Token (for sending to backend)
@@ -43,6 +42,7 @@ export class AuthService {
   }
 
   registerBackend(user: any): Promise<any> {
-    return lastValueFrom(this.http.post(`http://localhost:8080/api/user/register`, user));
+    const url = `${this.BASE_URL}/register`;
+    return lastValueFrom(this.http.post(url, user));
   }
 }
