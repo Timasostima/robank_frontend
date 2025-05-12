@@ -68,41 +68,6 @@
   align-items: center;
 }
 
-.toggle-container {
-  position: relative;
-  cursor: pointer;
-}
-
-.toggle-track {
-  width: 40px;
-  height: 24px;
-  background-color: #374151;
-  border-radius: 50px;
-  transition: background-color 300ms;
-}
-.toggle-track:has(+ .toggle-thumb.active) {
-  background-color: var(--primary);
-  opacity: 0.3;
-  transition: background-color 300ms;
-}
-
-.toggle-thumb {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  background-color: white;
-  border-radius: 50%;
-  left: 4px;
-  top: 4px;
-  transition: transform 150ms, background-color 300ms;
-}
-
-.toggle-thumb.active {
-  transform: translateX(16px);
-  background-color: var(--primary);
-  transition: transform 150ms, background-color 300ms;
-}
-
 .terms-text {
   margin-left: 12px;
   font-size: 14px;

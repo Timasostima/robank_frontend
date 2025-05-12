@@ -19,7 +19,7 @@
           formControlName="email"
           placeholder="email"
           class="input-field"
-          [ngClass]="{'error-input': submitted && f['email'].errors}"
+          [ngClass]="{'error-input': submitted && form['email'].errors}"
         />
       </div>
 
@@ -29,7 +29,7 @@
           formControlName="password"
           placeholder="password"
           class="input-field"
-          [ngClass]="{'error-input': submitted && f['password'].errors}"
+          [ngClass]="{'error-input': submitted && form['password'].errors}"
         />
         <button
           type="button"
@@ -42,18 +42,7 @@
       </div>
 
       <div class="terms-container">
-        <label class="toggle-container">
-          <input
-            type="checkbox"
-            formControlName="acceptTerms"
-            class="sr-only"
-          />
-          <div class="toggle-track"></div>
-          <div
-            [ngClass]="{'active': f['acceptTerms'].value}"
-            class="toggle-thumb"
-          ></div>
-        </label>
+        <app-switch (toggle)="form['acceptTerms'].setValue($event)"></app-switch>
         <span class="terms-text">I Accept the <a routerLink="/terms" class="terms-link">Terms and Conditions</a></span>
       </div>
 

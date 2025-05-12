@@ -1,4 +1,4 @@
-import {Component, inject} from "@angular/core"
+import {Component, EventEmitter, inject, Output} from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { RouterLink } from "@angular/router"
@@ -26,7 +26,7 @@ export class LoginComponent {
     })
   }
 
-  get f() {
+  get form() {
     return this.loginForm.controls
   }
 
@@ -41,7 +41,7 @@ export class LoginComponent {
       return
     }
 
-    this.authService.logIn(this.f["email"].value, this.f["password"].value)
+    this.authService.logIn(this.form["email"].value, this.form["password"].value)
       .then(user => {
         console.log('Logged in:', user);
       })

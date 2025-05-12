@@ -3,11 +3,12 @@ import { CommonModule } from "@angular/common"
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router"
 import {AuthService} from '../../core/services/auth.service';
+import {SwitchComponent} from '../../shared/switch/switch.component';
 
 @Component({
   selector: "app-register",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, SwitchComponent],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })
@@ -28,7 +29,7 @@ export class RegisterComponent {
     })
   }
 
-  get f() {
+  get form() {
     return this.signupForm.controls
   }
 
@@ -47,9 +48,9 @@ export class RegisterComponent {
       return
     }
 
-    console.log("Email:", this.f["email"].value, "Password:", this.f["password"].value);
+    console.log("Email:", this.form["email"].value, "Password:", this.form["password"].value);
 
-    this.authService.register(this.f["email"].value, this.f["password"].value)
+    this.authService.register(this.form["email"].value, this.form["password"].value)
       .then(response => {
         console.log('Registered:', response);
         let usrObj = {

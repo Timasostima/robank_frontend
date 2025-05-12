@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword} from '@angular/fire/auth';
-import {lastValueFrom, Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +11,31 @@ export class AuthService {
   private http = inject(HttpClient);
   private BASE_URL = 'http://localhost:8080/user';
 
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   logIn(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password);
+    const user =  signInWithEmailAndPassword(this.auth, email, password);
+    this.isLoggedInSubject.next(true);
+    return user;
   }
 
-  register(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
+  async register(email: string, password: string) {
+    const user = await createUserWithEmailAndPassword(this.auth, email, password);
+    this.isLoggedInSubject.next(true);
+    return user;
   }
 
   signOut() {
-    return signOut(this.auth);
+    return signOut(this.auth).then(() => {
+      this.isLoggedInSubject.next(false);
+    });
   }
 
-  // Sign in with Google
-  signInWithGoogle() {
+  async signInWithGoogle() {
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(this.auth, provider);
+    await signInWithPopup(this.auth, provider);
+    this.isLoggedInSubject.next(true);
   }
 
   getProfile(): Observable<any> {
@@ -34,11 +43,14 @@ export class AuthService {
     return this.http.get(url);
   }
 
-  // Fetch Firebase JWT Token (for sending to backend)
   async getToken(): Promise<string | null> {
-    console.log('getToken');
     const user = this.auth.currentUser;
     return user ? await user.getIdToken() : null;
+  }
+
+  isLoggedIn(): boolean {
+    const user = this.auth.currentUser;
+    return !!user;
   }
 
   registerBackend(user: any): Promise<any> {

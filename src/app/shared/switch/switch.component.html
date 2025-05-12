@@ -1,0 +1,9 @@
+<label class="toggle-container">
+  <input
+    type="checkbox"
+    class="sr-only"
+    (change)="onToggle($event)"
+  />
+  <div class="toggle-track" [class.active]="checked"></div>
+  <div class="toggle-thumb" [class.active]="checked"></div>
+</label>

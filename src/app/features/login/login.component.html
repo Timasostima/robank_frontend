@@ -11,7 +11,7 @@
           formControlName="email"
           placeholder="email"
           class="input-field"
-          [ngClass]="{'error-input': submitted && f['email'].errors}"
+          [ngClass]="{'error-input': submitted && form['email'].errors}"
         />
       </div>
 
@@ -21,7 +21,7 @@
           formControlName="password"
           placeholder="password"
           class="input-field"
-          [ngClass]="{'error-input': submitted && f['password'].errors}"
+          [ngClass]="{'error-input': submitted && form['password'].errors}"
         />
         <button
           type="button"
