@@ -32,10 +32,6 @@
   --on-secondary-container: var(--dark-on-secondary-container);
 }
 
-*{
-  transition: color 0.3s, background-color 0.3s;
-}
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
