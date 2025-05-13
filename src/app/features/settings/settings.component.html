@@ -1,0 +1,34 @@
+<div class="settings-container">
+  <div class="content">
+    <div class="profile-card">
+      <img [src]="userPfp" alt="Profile Picture" class="profile-picture"/>
+      <div class="profile-info">
+        <h2 class="profile-name">{{ userName }}</h2>
+        <p class="profile-email">{{ userEmail }}</p>
+      </div>
+      <button class="logout-button" (click)="signOut()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+
+    <div class="settings-list">
+      <div class="settings-item">
+        <div class="settings-row">
+          <h3 class="settings-label">Theme</h3>
+          <app-switch [checked]="(initialTheme)" (toggle)="changeTheme($event)"></app-switch>
+        </div>
+      </div>
+
+      <div class="settings-item">
+        <div class="settings-row">
+          <h3 class="settings-label">Change the password?</h3>
+          <button class="change-button">Change</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="coming-soon">
+      Coming soon!!
+    </div>
+  </div>
+</div>

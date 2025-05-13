@@ -1,0 +1,175 @@
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--background);
+  max-width: 1000px;
+  margin: auto;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.profile-card {
+  background-color: var(--surface);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-info {
+  flex-grow: 1;
+}
+
+.profile-name {
+  font-size: 20px;
+  margin: 0 0 4px 0;
+}
+
+.profile-email {
+  color: #9ca3af;
+  margin: 0;
+}
+
+.profile-picture {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-right: 16px;
+  background-color: var(--primary); /* Circle background color */
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  object-fit: cover; /* Ensures the image fits well */
+  padding: 3px; /* Optional: Adds spacing between the image and the circle */
+}
+
+.logout-button {
+  padding: 8px;
+  aspect-ratio: 1;
+  background-color: var(--on-secondary-container);
+  border-radius: 50%;
+  border: none;
+  color: var(--on-surface);
+  cursor: pointer;
+}
+
+.fa-solid::before {
+  font-size: 20px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-item {
+  background-color: var(--surface);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settings-label {
+  font-size: 18px;
+  margin: 0;
+}
+
+.settings-value {
+  display: flex;
+  align-items: center;
+}
+
+.settings-dropdown-icon {
+  margin-left: 4px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  width: 44px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+/*.toggle-switch-dark {*/
+/*  background-color: var(--primary);*/
+/*}*/
+
+/*.toggle-switch-light {*/
+/*  background-color: var(--on-secondary-container);*/
+/*}*/
+
+.toggle-handle {
+  position: absolute;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 150ms;
+}
+
+/*.toggle-handle-dark {*/
+/*  transform: translateX(24px);*/
+/*}*/
+
+/*.toggle-handle-light {*/
+/*  transform: translateX(4px);*/
+/*}*/
+
+.toggle-icon {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+}
+
+/*.toggle-icon-dark {*/
+/*  right: 4px;*/
+/*  color: #9ca3af;*/
+/*}*/
+
+/*.toggle-icon-light {*/
+/*  left: 4px;*/
+/*  color: #f59e0b;*/
+/*}*/
+
+.change-button {
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.coming-soon {
+  margin-top: 48px;
+  text-align: center;
+  font-size: 30px;
+  color: #6b7280;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
