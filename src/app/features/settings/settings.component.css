@@ -52,7 +52,7 @@
 .logout-button {
   padding: 8px;
   aspect-ratio: 1;
-  background-color: var(--on-secondary-container);
+  background-color: var(--additional-background);
   border-radius: 50%;
   border: none;
   color: var(--on-surface);

@@ -6,7 +6,7 @@
 .toggle-track {
   width: 40px;
   height: 24px;
-  background-color: var(--on-secondary-container);
+  background-color: var(--additional-background);
   border-radius: 50px;
   transition: background-color 300ms;
 }
