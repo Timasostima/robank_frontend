@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { Auth, onAuthStateChanged, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,36 +11,36 @@ export class AuthService {
   private http = inject(HttpClient);
   private BASE_URL = 'http://localhost:8080/user';
 
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  logIn(email: string, password: string) {
-    const user =  signInWithEmailAndPassword(this.auth, email, password);
-    this.isLoggedInSubject.next(true);
+  constructor() {
+    onAuthStateChanged(this.auth, (user) => {
+      this.isLoggedInSubject.next(!!user);
+    });
+  }
+
+  async logIn(email: string, password: string) {
+    const user = await signInWithEmailAndPassword(this.auth, email, password);
     return user;
   }
 
   async register(email: string, password: string) {
     const user = await createUserWithEmailAndPassword(this.auth, email, password);
-    this.isLoggedInSubject.next(true);
     return user;
   }
 
-  signOut() {
-    return signOut(this.auth).then(() => {
-      this.isLoggedInSubject.next(false);
-    });
+  logout() {
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    localStorage.removeItem('pfp');
+    return signOut(this.auth);
   }
 
-  async signInWithGoogle() {
+  async LogInWithGoogle() {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth, provider);
-    this.isLoggedInSubject.next(true);
-  }
-
-  getProfile(): Observable<any> {
-    const url = `${this.BASE_URL}/profile`;
-    return this.http.get(url);
+    const user = await signInWithPopup(this.auth, provider);
+    return user;
   }
 
   async getToken(): Promise<string | null> {
@@ -49,12 +49,11 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const user = this.auth.currentUser;
-    return !!user;
+    return !!this.auth.currentUser;
   }
 
   registerBackend(user: any): Promise<any> {
     const url = `${this.BASE_URL}/register`;
-    return lastValueFrom(this.http.post(url, user));
+    return this.http.post(url, user).toPromise();
   }
 }

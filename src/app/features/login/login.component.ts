@@ -36,6 +36,7 @@ export class LoginComponent {
     this.showPassword = !this.showPassword
   }
 
+  // Login
   onSubmit() {
     this.submitted = true
 
@@ -44,15 +45,26 @@ export class LoginComponent {
     }
 
     this.authService.logIn(this.form["email"].value, this.form["password"].value)
-      .then(user => {
+      .then(response => {
+        console.log('Firebase login successful:', response)
+        localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
+        localStorage.setItem('email', response.user.email || 'Unknown');
+        localStorage.setItem('pfp', response.user.photoURL || 'Unknown');
         this.router.navigate(['/dashboard'])
       })
       .catch(err => console.error("Login failed", err));
   }
 
   LoginGoogle() {
-    this.authService.signInWithGoogle()
-      .then(user => console.log('Google Log-in:', user))
+    this.authService.LogInWithGoogle()
+      .then(response => {
+        this.router.navigate(['/dashboard'])
+        localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
+        localStorage.setItem('email', response.user.email || 'Unknown');
+        localStorage.setItem('pfp', response.user.photoURL || 'Unknown');
+        this.router.navigate(['/dashboard'])
+        console.log('Google Log-in:', response)
+      })
       .catch(err => console.error(err));
   }
 }

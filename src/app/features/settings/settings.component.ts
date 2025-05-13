@@ -1,6 +1,7 @@
-import {Component, type OnInit} from "@angular/core"
+import {Component, inject, type OnInit} from "@angular/core"
 import {CommonModule} from "@angular/common"
 import {SwitchComponent} from '../../shared/switch/switch.component';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: "app-settings",
@@ -14,6 +15,7 @@ export class SettingsComponent implements OnInit {
   protected userName: string | null = null;
   protected userEmail: string | null = null;
   protected userPfp: string | null = null;
+  private authService = inject(AuthService);
 
   ngOnInit() {
     this.userName = localStorage.getItem('name');
@@ -32,11 +34,13 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('isdarktheme', String(isDarkTheme));
   }
 
-  signOut() {
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
-    localStorage.removeItem('pfp');
-    window.location.href = '/login';
+  logout() {
+    this.authService.logout()
+      .then(() => {
+        console.log("User logged out successfully");
+        window.location.href = '/login';
+      })
+      .catch(err => console.error("Logout failed", err));
   }
 
   private getPfp() {
