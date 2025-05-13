@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./switch.component.css']
 })
 export class SwitchComponent {
-  @Output() toggle = new EventEmitter<boolean>();
+  @Output()
+  toggle = new EventEmitter<boolean>();
+
+  @Input()
   checked = false;
 
   onToggle(event: Event) {

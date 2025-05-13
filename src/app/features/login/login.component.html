@@ -28,13 +28,13 @@
           (click)="togglePasswordVisibility()"
           class="password-toggle"
         >
-          <span *ngIf="!showPassword" class="material-symbols-outlined">visibility</span>
-          <span *ngIf="showPassword" class="material-symbols-outlined">visibility_off</span>
+          <i *ngIf="showPassword" class="fa-regular fa-eye"></i>
+          <i *ngIf="!showPassword" class="fa-regular fa-eye-slash"></i>
         </button>
       </div>
 
       <div class="forgot-password">
-        <a routerLink="/auth/forgot-password" class="text-primary">Forgot Password?</a>
+        <a routerLink="/forgot-password" class="text-primary">Forgot Password?</a>
       </div>
 
       <button type="submit" class="btn-primary">

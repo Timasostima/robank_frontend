@@ -2,6 +2,7 @@
   <input
     type="checkbox"
     class="sr-only"
+    [attr.checked]="checked ? true : null"
     (change)="onToggle($event)"
   />
   <div class="toggle-track" [class.active]="checked"></div>

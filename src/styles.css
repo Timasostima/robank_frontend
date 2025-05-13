@@ -2,7 +2,7 @@
   --light-primary: #b79ae8;
   --light-background: #f5f4fc;
   --light-surface: #ffffff;
-  --light-on-surface: #423e54;
+  --light-on-surface: #b0a5e1;
   --light-secondary-container: #c1c1ff;
   --light-on-secondary-container: #726d88;
 
@@ -11,7 +11,7 @@
   --dark-surface: #1f1f30;
   --dark-on-surface: #bdbdff;
   --dark-secondary-container: rgba(189, 189, 255, 0.08);
-  --dark-on-secondary-container: #cabae6;
+  --dark-on-secondary-container: #62596e;
 }
 
 .light-theme {
