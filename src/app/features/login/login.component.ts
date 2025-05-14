@@ -36,7 +36,7 @@ export class LoginComponent {
     this.showPassword = !this.showPassword
   }
 
-  // Login
+  // Login form
   onSubmit() {
     this.submitted = true
 
@@ -49,7 +49,6 @@ export class LoginComponent {
         console.log('Firebase login successful:', response)
         localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
         localStorage.setItem('email', response.user.email || 'Unknown');
-        localStorage.setItem('pfp', response.user.photoURL || 'Unknown');
         this.router.navigate(['/dashboard'])
       })
       .catch(err => console.error("Login failed", err));
@@ -57,14 +56,23 @@ export class LoginComponent {
 
   LoginGoogle() {
     this.authService.LogInWithGoogle()
-      .then(response => {
-        this.router.navigate(['/dashboard'])
+      .then(async (response) => {
+        const exists = await this.authService.checkNewUser(response.user.uid);
+        if (!exists) {
+          const usrObj = {
+            uid: response.user.uid,
+            email: response.user.email,
+            name: response.user.displayName || "alex",
+          };
+          await this.authService.registerBackend(usrObj);
+          if (response.user.photoURL) {
+            await this.authService.uploadImageUrl(response.user.photoURL);
+          }
+        }
         localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
         localStorage.setItem('email', response.user.email || 'Unknown');
-        localStorage.setItem('pfp', response.user.photoURL || 'Unknown');
-        this.router.navigate(['/dashboard'])
-        console.log('Google Log-in:', response)
+        this.router.navigate(['/dashboard']);
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error("Login with Google failed", err));
   }
 }

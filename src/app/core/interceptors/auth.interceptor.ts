@@ -12,6 +12,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // For endpoints that don't require authentication
   const publicEndpoints = [
     '/user/register',
+    '/check-new-user'
   ];
 
   if (publicEndpoints.some(url => req.url.includes(environment.apiUrl + url))) {
