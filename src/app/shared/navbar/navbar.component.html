@@ -1,0 +1,53 @@
+<nav class="navbar" [class.mobile]="isMobile">
+  <div class="navbar-container">
+    <!-- Brand Section -->
+    <div class="navbar-brand" (click)="toLandingPage()">
+      <img src="Robank_Logo_Small.png" alt="Robank Logo" class="logo"/>
+      <h1 class="app-title">Robank</h1>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button *ngIf="isMobile && isLoggedIn" class="menu-toggle" (click)="toggleMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Authentication Buttons -->
+    <div *ngIf="!isLoggedIn" class="auth-buttons">
+      <a routerLink="/login" class="login-btn">Log In</a>
+      <a routerLink="/register" class="register-btn">Register</a>
+    </div>
+
+    <!-- Navigation Links -->
+    <div *ngIf="isLoggedIn" class="nav-links" [class.open]="menuOpen">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link" (click)="closeMenu()">Dashboard</a>
+      <a routerLink="/transactions" routerLinkActive="active" class="nav-link" (click)="closeMenu()">Transactions</a>
+      <a routerLink="/goals" routerLinkActive="active" class="nav-link" (click)="closeMenu()">Goals</a>
+
+      <!-- Mobile Profile Actions -->
+      <div *ngIf="isMobile" class="mobile-profile">
+        <a routerLink="/settings" class="profile-link">
+          <i class="fa-regular fa-user"></i> Settings
+        </a>
+        <button (click)="logout()" class="logout-btn">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Desktop Profile Actions -->
+    <div *ngIf="isLoggedIn && !isMobile" class="profile-actions">
+      <button class="profile-button" (click)="toggleProfileMenu()">
+        <i class="fa-regular fa-user"></i>
+      </button>
+      <div *ngIf="profileMenuOpen" class="profile-dropdown">
+        <a routerLink="/settings" class="profile-dropdown-item">Settings</a>
+        <button (click)="logout()" class="profile-dropdown-item logout">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
