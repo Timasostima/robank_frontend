@@ -1,7 +1,13 @@
 <div class="settings-container">
   <div class="content">
     <div class="profile-card">
-      <img [src]="userPfp" alt="Profile Picture" class="profile-picture"/>
+      <div class="profile-picture-container">
+        <img [src]="userPfp" alt="Profile Picture" class="profile-picture"/>
+      <div class="edit-icon" (click)="triggerFileInput()">
+        <i class="fa-solid fa-pen"></i>
+        <input type="file" (change)="onFileSelected($event)" class="sr-only" />
+      </div>
+      </div>
       <div class="profile-info">
         <h2 class="profile-name">{{ userName }}</h2>
         <p class="profile-email">{{ userEmail }}</p>

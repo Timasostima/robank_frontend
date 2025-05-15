@@ -62,6 +62,9 @@
 .fa-solid::before {
   font-size: 20px;
 }
+.fa-pen::before {
+  font-size: 15px;
+}
 
 .settings-list {
   display: flex;
@@ -106,14 +109,6 @@
   cursor: pointer;
 }
 
-/*.toggle-switch-dark {*/
-/*  background-color: var(--primary);*/
-/*}*/
-
-/*.toggle-switch-light {*/
-/*  background-color: var(--on-secondary-container);*/
-/*}*/
-
 .toggle-handle {
   position: absolute;
   display: inline-block;
@@ -124,29 +119,11 @@
   transition: transform 150ms;
 }
 
-/*.toggle-handle-dark {*/
-/*  transform: translateX(24px);*/
-/*}*/
-
-/*.toggle-handle-light {*/
-/*  transform: translateX(4px);*/
-/*}*/
-
 .toggle-icon {
   position: absolute;
   height: 16px;
   width: 16px;
 }
-
-/*.toggle-icon-dark {*/
-/*  right: 4px;*/
-/*  color: #9ca3af;*/
-/*}*/
-
-/*.toggle-icon-light {*/
-/*  left: 4px;*/
-/*  color: #f59e0b;*/
-/*}*/
 
 .change-button {
   color: var(--primary);
@@ -172,4 +149,30 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.profile-picture-container {
+  position: relative;
+  display: inline-block;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.edit-icon i {
+  font-size: 16px;
 }
