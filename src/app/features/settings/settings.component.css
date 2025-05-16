@@ -41,12 +41,11 @@
   height: 64px;
   border-radius: 50%;
   margin-right: 16px;
-  background-color: var(--primary); /* Circle background color */
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*justify-content: center;*/
-  object-fit: cover; /* Ensures the image fits well */
-  padding: 3px; /* Optional: Adds spacing between the image and the circle */
+  background-color: var(--primary);
+  object-fit: cover;
+  padding: 3px;
+  aspect-ratio: 1;
+
 }
 
 .logout-button {
