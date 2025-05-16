@@ -1,4 +1,4 @@
-<nav class="navbar" [class.mobile]="isMobile">
+<nav *ngIf="isLoggedIn !== null; else loading" class="navbar" [class.mobile]="isMobile">
   <div class="navbar-container">
     <!-- Brand Section -->
     <div class="navbar-brand" (click)="toLandingPage()">
@@ -51,3 +51,14 @@
     </div>
   </div>
 </nav>
+
+<ng-template #loading>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand">
+        <div class="skeleton-logo"></div>
+        <div class="skeleton-title"></div>
+      </div>
+    </div>
+  </nav>
+</ng-template>

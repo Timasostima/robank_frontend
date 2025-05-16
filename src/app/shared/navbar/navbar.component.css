@@ -231,6 +231,21 @@
   border-bottom: none;
 }
 
+.skeleton-logo {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(189, 189, 255, 0.1);
+  border-radius: 50%;
+}
+
+.skeleton-title {
+  width: 120px;
+  height: 24px;
+  background-color: rgba(189, 189, 255, 0.1);
+  margin-left: 12px;
+  border-radius: 4px;
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     height: 56px;

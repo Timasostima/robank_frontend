@@ -28,6 +28,14 @@ export class AuthService {
     });
   }
 
+  async waitForAuthState(): Promise<boolean> {
+    return new Promise((resolve) => {
+      onAuthStateChanged(this.auth, (user) => {
+        resolve(!!user);
+      });
+    });
+  }
+
   async logIn(email: string, password: string) {
     const user = await signInWithEmailAndPassword(this.auth, email, password);
     return user;

@@ -14,8 +14,18 @@ export class NavbarComponent implements OnInit {
   isMobile = false
   menuOpen = false
   authService = inject(AuthService)
-  isLoggedIn: boolean = false
   profileMenuOpen = false
+
+  isLoggedIn: boolean | null = null;
+
+  async ngOnInit() {
+    this.isLoggedIn = await this.authService.waitForAuthState(); // Wait for auth state
+    console.log("Navbar isLoggedIn:", this.isLoggedIn);
+    this.checkScreenSize();
+    this.authService.isLoggedIn$.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+    });
+  }
 
   @HostListener("window:resize", ["$event"])
   onResize(event: any) {
@@ -36,13 +46,6 @@ export class NavbarComponent implements OnInit {
         }
       }
     }
-  }
-
-  ngOnInit() {
-    this.checkScreenSize()
-    this.authService.isLoggedIn$.subscribe((loggedIn) => {
-      this.isLoggedIn = loggedIn;
-    });
   }
 
   checkScreenSize() {
