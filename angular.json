@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "robankWeb": {
+    "robank_frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "robankWeb:build:production"
+              "buildTarget": "robank_frontend:build:production"
             },
             "development": {
-              "buildTarget": "robankWeb:build:development"
+              "buildTarget": "robank_frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -11,12 +11,12 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
     FormsModule,
     RouterOutlet,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  title: string = 'robankWeb';
+  title: string = 'robank_frontend';
 
   ngOnInit(): void {
     const storedTheme = localStorage.getItem('isdarktheme');
