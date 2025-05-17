@@ -28,8 +28,8 @@
           (click)="togglePasswordVisibility()"
           class="password-toggle"
         >
-          <i *ngIf="showPassword" class="fa-regular fa-eye"></i>
-          <i *ngIf="!showPassword" class="fa-regular fa-eye-slash"></i>
+          <span *ngIf="showPassword" class="material-symbols-outlined">visibility</span>
+          <span *ngIf="!showPassword" class="material-symbols-outlined">visibility_off</span>
         </button>
       </div>
 

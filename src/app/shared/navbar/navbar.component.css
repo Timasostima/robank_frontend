@@ -125,8 +125,10 @@
   right: 0;
   background-color: var(--surface);
   border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 6px var(--additional-background);
   width: 160px;
+  min-width: 160px;
+  max-width: 100%;
   margin-top: 8px;
   z-index: 10;
   overflow: hidden;
@@ -140,6 +142,8 @@
   transition: background-color 0.2s;
   text-align: left;
   width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   border: none;
   background: none;
   font-size: 14px;
@@ -165,9 +169,10 @@
 }
 
 .mobile-profile {
-  border-top: 1px solid rgba(189, 189, 255, 0.1);
-  margin-top: 8px;
-  padding-top: 8px;
+  width:100%;
+}
+.mobile-profile > *{
+  border-bottom: 1px solid rgba(189, 189, 255, 0.05);
 }
 
 .profile-link {
@@ -190,6 +195,7 @@
   width: 100%;
   text-align: left;
   cursor: pointer;
+  /*font: unset;*/
 }
 
 /* Mobile styles */
@@ -208,10 +214,13 @@
   border-bottom: 1px solid rgba(189, 189, 255, 0.1);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   align-items: flex-start;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .navbar.mobile .nav-links.open {
   display: flex;
+  box-shadow: 0 4px 6px 0 var(--additional-background);
 }
 
 .navbar.mobile .nav-link {
