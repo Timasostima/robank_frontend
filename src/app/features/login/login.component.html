@@ -34,7 +34,7 @@
       </div>
 
       <div class="forgot-password">
-        <a routerLink="/forgot-password" class="text-primary">Forgot Password?</a>
+        <a (click)="openForgotPasswordPopup()" class="text-primary">Forgot Password?</a>
       </div>
 
       <button type="submit" class="btn-primary">
@@ -59,3 +59,23 @@
     </form>
   </div>
 </div>
+
+<!-- Popup for password reset -->
+<app-popup
+  [isOpen]="isPopupOpen"
+  title="Reset Password"
+  [showFooter]="true"
+  [confirmText]="'Send Reset Link'"
+  [cancelText]="'Cancel'"
+  (closed)="closePopup()"
+  (confirmed)="sendPasswordReset()"
+>
+  <div class="input-container">
+    <input
+      type="email"
+      [(ngModel)]="resetEmail"
+      placeholder="Enter your email"
+      class="input-field"
+    />
+  </div>
+</app-popup>

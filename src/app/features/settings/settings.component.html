@@ -3,10 +3,10 @@
     <div class="profile-card">
       <div class="profile-picture-container">
         <img [src]="userPfp" alt="Profile Picture" class="profile-picture"/>
-      <div class="edit-icon" (click)="triggerFileInput()">
-        <i class="fa-solid fa-pen"></i>
-        <input type="file" (change)="onFileSelected($event)" class="sr-only" />
-      </div>
+        <div class="edit-icon" (click)="triggerFileInput()">
+          <i class="fa-solid fa-pen"></i>
+          <input type="file" (change)="onFileSelected($event)" class="sr-only"/>
+        </div>
       </div>
       <div class="profile-info">
         <h2 class="profile-name">{{ userName }}</h2>
@@ -28,7 +28,7 @@
       <div class="settings-item">
         <div class="settings-row">
           <h3 class="settings-label">Change the password?</h3>
-          <button class="change-button">Change</button>
+          <button class="change-button" (click)="openPasswordResetPopup()">Change</button>
         </div>
       </div>
     </div>
@@ -38,3 +38,15 @@
     </div>
   </div>
 </div>
+
+<app-popup
+  [isOpen]="isPopupOpen"
+  title="Reset Password"
+  [showFooter]="true"
+  [confirmText]="'Yes'"
+  [cancelText]="'No'"
+  (closed)="closePopup()"
+  (confirmed)="sendPasswordReset()"
+>
+  <p>Do you want to reset your password?</p>
+</app-popup>

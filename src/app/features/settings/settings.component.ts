@@ -2,11 +2,12 @@ import {Component, inject, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {SwitchComponent} from '../../shared/switch/switch.component';
 import {AuthService} from '../../core/services/auth.service';
+import {PopupComponent} from '../../shared/popup/popup.component';
 
 @Component({
   selector: "app-settings",
   standalone: true,
-  imports: [CommonModule, SwitchComponent],
+  imports: [CommonModule, SwitchComponent, PopupComponent],
   templateUrl: "settings.component.html",
   styleUrls: ["settings.component.css"],
 })
@@ -15,6 +16,7 @@ export class SettingsComponent implements OnInit {
   protected userName: string | null = null;
   protected userEmail: string | null = null;
   protected userPfp: string | null = 'incognito.svg';
+  isPopupOpen = false;
   private authService = inject(AuthService);
 
   selectedFile: File | null = null;
@@ -89,5 +91,32 @@ export class SettingsComponent implements OnInit {
         window.location.href = '/login';
       })
       .catch(err => console.error("Logout failed", err));
+  }
+
+
+  openPasswordResetPopup() {
+    this.isPopupOpen = true;
+  }
+
+  closePopup() {
+    this.isPopupOpen = false;
+  }
+
+  sendPasswordReset() {
+    if (!this.userEmail) {
+      alert("No email associated with the user.");
+      return;
+    }
+
+    this.authService
+      .resetPassword(this.userEmail)
+      .then(() => {
+        alert("Password reset link sent to your email.");
+        this.closePopup();
+      })
+      .catch((err) => {
+        console.error("Failed to send password reset link:", err);
+        alert("Failed to send password reset link. Please try again.");
+      });
   }
 }
