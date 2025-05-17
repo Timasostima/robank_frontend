@@ -1,0 +1,53 @@
+<div class="bills-container">
+  <h1>Bills</h1>
+
+  <div *ngIf="error" class="error-state">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!error && bills.length === 0" class="empty-state">
+    <p>No bills found. Add your first bill to start tracking your expenses.</p>
+  </div>
+
+  <div *ngIf="!error && bills.length > 0" class="bills-chart-view">
+    <!-- Week navigation -->
+    <div class="week-navigation">
+      <button class="nav-button" (click)="previousWeek()">
+        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+      </button>
+      <span class="week-title">{{ currentWeekFormatted }}</span>
+      <button class="nav-button" (click)="nextWeek()">
+        <span class="material-symbols-outlined">arrow_forward_ios</span>
+      </button>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+      <canvas id="billsChart"></canvas>
+    </div>
+
+    <!-- Bills list -->
+    <div class="bills-list-header">
+      <span>Name</span>
+      <span>Category</span>
+      <span>Date</span>
+      <span>Time</span>
+      <span>Amount</span>
+    </div>
+
+    <div class="bills-list">
+      <div *ngFor="let bill of currentWeekBills" class="bill-item">
+        <span class="bill-name" data-label="Name:">{{ bill.name }}</span>
+        <span class="category-name" data-label="Category:">{{ getCategoryName(bill.categoryId) }}</span>
+        <span class="bill-date" data-label="Date:">{{ bill.date }}</span>
+        <span class="bill-time" data-label="Time:">{{ bill.time }}</span>
+        <span class="bill-amount" data-label="Amount:">{{ bill.amount | currency:'EUR' }}</span>
+      </div>
+
+      <div *ngIf="currentWeekBills.length === 0" class="no-bills-message">
+        No bills for this week
+      </div>
+    </div>
+  </div>
+</div>
