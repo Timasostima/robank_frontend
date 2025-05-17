@@ -1,59 +1,155 @@
-# robank_frontend
+# Robank - Sistema de Gestión de Finanzas Personales
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+![Robank Logo](robank_frontend/public/Robank_Logo_Small.png)
 
-## Development server
+Sistema multiplataforma para la gestión de finanzas personales, desarrollado como Trabajo de Fin de Grado para el ciclo de Desarrollo de Aplicaciones Multiplataforma.
 
-To start a local development server, run:
+## Componentes del Sistema
 
-```bash
-ng serve
-```
+| Componente | Descripción |
+|------------|-------------|
+| [**Robank Android**](robank_android/) | Aplicación nativa para Android |
+| [**Robank Backend**](robank_backend/) | Servidor RESTful con Spring Boot |
+| [**Robank Frontend**](robank_frontend/) | Aplicación web SPA con Angular |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+> [!NOTE]
+> Cada componente puede funcionar de manera independiente, pero se recomienda ejecutar el sistema completo para disfrutar de todas las funcionalidades.
 
-## Code scaffolding
+## Funcionalidades Principales
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Acceso Multiplataforma**: Web y Android
+- **Autenticación Segura**: Email/contraseña y Google
+- **Categorización Personalizada**: Organización eficiente de gastos
+- **Análisis Visual**: Gráficos para el seguimiento financiero
+- **Localización**: Soporte para español e inglés
+- **Modos de Visualización**: Temas claro y oscuro
 
-```bash
-ng generate component component-name
-```
+## Tecnologías
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Frontend Web**: Angular 19, TypeScript, Chart.js
+- **Backend**: Spring Boot 3.2, JPA/Hibernate, PostgreSQL
+- **Android**: Kotlin, Jetpack Compose, Material Design 3
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Instalación Rápida
 
 ```bash
-ng test
+# Clonar el repositorio con submódulos
+git clone --recurse-submodules https://github.com/Timasostima/Robank.git
+cd Robank
+
+# Iniciar backend y base de datos con Docker
+cd robank_backend
+docker-compose up -d
+
+# Iniciar el servidor de desarrollo frontend
+cd ../robank_frontend
+npm install
+npm start
 ```
 
-## Running end-to-end tests
+> [!TIP]
+> Consulta los README individuales de cada componente para obtener instrucciones detalladas de instalación y configuración.
 
-For end-to-end (e2e) testing, run:
+## Robank Frontend
+
+![Robank Logo](robank_frontend/public/Robank_Logo_Small.png)
+
+Aplicación web Angular para el sistema Robank de gestión de finanzas personales.
+
+### Estructura
+
+```
+└── src/
+    ├── app/
+    │   ├── core/           # Servicios e interceptores
+    │   ├── features/       # Módulos principales
+    │   │   ├── dashboard/  # Dashboard principal
+    │   │   ├── categories/ # Gestión de categorías
+    │   │   ├── bills/      # Gestión de gastos
+    │   │   ├── login/      # Autenticación
+    │   │   └── settings/   # Preferencias
+    │   ├── shared/         # Componentes reutilizables
+    │   └── app.component.ts
+    └── assets/             # Recursos estáticos
+```
+
+### Funcionalidades
+
+- **Interfaz Elegante**: Diseño moderno y responsive
+- **Temas**: Soporte para tema claro y oscuro
+- **Dashboard Analítico**: Gráficos para análisis de gastos
+- **Gestión de Gastos**: Organización por categorías
+- **Autenticación**: Sistema seguro de login/registro
+- **Diseño Responsive**: Enfoque mobile-first
+
+> [!IMPORTANT]
+> La aplicación requiere conexión al backend para funcionar correctamente.
+
+### Tecnologías
+
+- Angular 19
+- Firebase Authentication
+- Chart.js para visualización
+- Variables CSS para temas
+- Material Symbols
+
+### Requisitos
+
+- Node.js 18+
+- NPM 8+
+
+### Instalación
+
+1. Clonar el repositorio
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+3. Configurar variables de entorno:
+   ```typescript
+   // environment.ts
+   export const environment = {
+     production: false,
+     apiUrl: 'http://localhost:8080/api',
+     firebase: {
+       apiKey: "TU_API_KEY",
+       authDomain: "TU_AUTH_DOMAIN",
+       projectId: "TU_PROJECT_ID",
+       appId: "TU_APP_ID"
+     }
+   };
+   ```
+4. Iniciar servidor de desarrollo:
+   ```bash
+   npm start
+   ```
+
+> [!TIP]
+> Para personalizar los temas, modifica las variables CSS en `src/styles.css`
+
+### Despliegue
 
 ```bash
-ng e2e
+# Compilar para producción
+npm run build
+
+# Desplegar con Firebase (opcional)
+firebase deploy
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+> [!CAUTION]
+> Asegúrate de configurar correctamente las variables de entorno para producción.
 
-## Additional Resources
+## Autor
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Tymur Kulivar Shymanskyi**
+- GitHub: [Timasostima](https://github.com/Timasostima)
+- Email: contact@tymurkulivar.dev
+
+## Licencia
+
+Este proyecto está disponible bajo la Licencia MIT.
+
+---
+
+*Desarrollado como Trabajo de Fin de Grado para el ciclo de Desarrollo de Aplicaciones Multiplataforma.*
