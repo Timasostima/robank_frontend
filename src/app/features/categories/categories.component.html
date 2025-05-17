@@ -1,0 +1,29 @@
+<div class="categories-container">
+  <h1>Categories</h1>
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!error" class="content">
+    <div class="chart-section">
+      <div class="chart-container">
+        <canvas #categoryChart></canvas>
+        <div class="total-amount">
+          <p>{{ totalAmount | currency:'₽':'symbol':'1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="categories-list">
+      <div *ngIf="categories.length === 0" class="no-data">
+        No categories available
+      </div>
+
+      <div *ngFor="let category of categories" class="category-item">
+        <div class="category-color" [style.background-color]="category.color"></div>
+        <div class="category-name">{{ category.name }}</div>
+        <div class="category-amount">{{ category.amount | currency:'₽':'symbol':'1.2-2' }}</div>
+      </div>
+    </div>
+  </div>
+</div>
