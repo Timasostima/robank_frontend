@@ -1,0 +1,36 @@
+<div class="goals-container">
+  <h1>Goals</h1>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!loading && !error && goals.length === 0" class="no-goals">
+    <p>No goals yet</p>
+  </div>
+
+  <div *ngFor="let goal of goals; let i = index" class="goal-card">
+  <div class="goal-image">
+    <div class="placeholder-image">
+      <img [src]="getGoalImage(i)" alt="Goal image" class="goal-img" />
+    </div>
+  </div>
+  <div class="goal-content">
+    <div class="goal-info">
+      <div class="goal-header">
+        <h3 class="goal-name">{{ goal.name }}</h3>
+        <p class="goal-price">{{ goal.price | currency:'₽':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="i === 0" class="goal-progress">
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width]="'50%'"></div>
+    </div>
+  </div>
+</div>
+</div>
