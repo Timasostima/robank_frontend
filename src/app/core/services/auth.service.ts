@@ -18,7 +18,7 @@ import {environment} from '../environments/environment';
 export class AuthService {
   private auth = inject(Auth);
   private http = inject(HttpClient);
-  private BASE_URL = `${environment.apiUrl}/bills`;
+  private BASE_URL = `${environment.apiUrl}/user`;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();

@@ -13,39 +13,13 @@ h1 {
   text-align: center;
 }
 
-.state-message {
+.empty-state{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 48px 0;
   text-align: center;
-}
-
-.state-message i {
-  font-size: 48px;
-  margin-bottom: 16px;
-  color: var(--primary);
-}
-
-.loading-state .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(183, 154, 232, 0.3);
-  border-radius: 50%;
-  border-top-color: var(--primary);
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 16px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.error-state i {
-  color: #ef4444;
 }
 
 .bills-chart-view {

@@ -12,12 +12,10 @@ import {AuthService} from '../../core/services/auth.service';
 })
 export class GoalsComponent implements OnInit {
   goals: Goal[] = [];
-  loading = true;
   error: string | null = null;
   authService = inject(AuthService);
 
-  constructor(private goalService: GoalService) {
-  }
+  constructor(private goalService: GoalService) {}
 
   async ngOnInit() {
     await this.authService.waitForAuthState();
@@ -25,16 +23,13 @@ export class GoalsComponent implements OnInit {
   }
 
   loadGoals(): void {
-    this.loading = true;
     this.error = null;
 
     this.goalService.getGoals().subscribe({
       next: (goals) => {
         this.goals = goals;
-        this.loading = false;
       },
       error: (error) => {
-        this.loading = false;
         this.error = 'Failed to load goals. Please try again.';
         console.error('Error loading goals:', error);
       }

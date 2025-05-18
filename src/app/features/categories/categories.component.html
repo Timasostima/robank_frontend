@@ -5,7 +5,7 @@
   </div>
 
   <div *ngIf="!error" class="content">
-    <div class="chart-section">
+    <div *ngIf="categories.length > 0" class="chart-section">
       <div class="chart-container">
         <canvas #categoryChart></canvas>
         <div class="total-amount">
