@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { Router, RouterLink } from "@angular/router"
 import {AuthService} from '../../core/services/auth.service';
 import {SwitchComponent} from '../../shared/switch/switch.component';
+import {ArrowButtonComponent} from '../../shared/arrow-button/arrow-button.component';
 
 @Component({
   selector: "app-register",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, SwitchComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, SwitchComponent, ArrowButtonComponent],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })

@@ -18,8 +18,8 @@
     <div class="goal-content">
       <div class="goal-info">
         <div class="goal-header">
-          <h3 class="goal-name">{{ goal.name }}</h3>
-          <p class="goal-price">{{ goal.price | currency:'₽':'symbol':'1.2-2' }}</p>
+          <p class="goal-name">{{ goal.name }}</p>
+          <p class="goal-price">{{ goal.price }}{{ currencySymbol }}</p>
         </div>
       </div>
     </div>

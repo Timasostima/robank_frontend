@@ -13,13 +13,9 @@
   <div *ngIf="!error && bills.length > 0" class="bills-chart-view">
     <!-- Week navigation -->
     <div class="week-navigation">
-      <button class="nav-button" (click)="previousWeek()">
-        <span class="material-symbols-outlined">arrow_back_ios_new</span>
-      </button>
+      <app-arrow-button direction="left" (click)="previousWeek()"></app-arrow-button>
       <span class="week-title">{{ currentWeekFormatted }}</span>
-      <button class="nav-button" (click)="nextWeek()">
-        <span class="material-symbols-outlined">arrow_forward_ios</span>
-      </button>
+      <app-arrow-button direction="right" (click)="nextWeek()"></app-arrow-button>
     </div>
 
     <!-- Chart -->
@@ -42,7 +38,7 @@
         <span class="category-name" data-label="Category:">{{ getCategoryName(bill.categoryId) }}</span>
         <span class="bill-date" data-label="Date:">{{ bill.date }}</span>
         <span class="bill-time" data-label="Time:">{{ bill.time }}</span>
-        <span class="bill-amount" data-label="Amount:">{{ bill.amount | currency:'EUR' }}</span>
+        <span class="bill-amount" data-label="Amount:">{{ bill.amount }}{{ currencySymbol }}</span>
       </div>
 
       <div *ngIf="currentWeekBills.length === 0" class="no-bills-message">

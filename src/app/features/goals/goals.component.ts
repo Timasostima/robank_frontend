@@ -15,7 +15,8 @@ export class GoalsComponent implements OnInit {
   error: string | null = null;
   authService = inject(AuthService);
 
-  constructor(private goalService: GoalService) {}
+  constructor(private goalService: GoalService) {
+  }
 
   async ngOnInit() {
     await this.authService.waitForAuthState();
@@ -39,5 +40,9 @@ export class GoalsComponent implements OnInit {
   getGoalImage(index: number): string {
     const imageCount = 4;
     return `goal/img_${(index % imageCount) + 1}.png`;
+  }
+
+  get currencySymbol(): string {
+    return localStorage.getItem('currencySymbol') || '€';
   }
 }

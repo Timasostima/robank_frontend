@@ -49,20 +49,24 @@
 }
 
 .logout-button {
-  padding: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   aspect-ratio: 1;
   background-color: var(--additional-background);
   border-radius: 50%;
   border: none;
   color: var(--on-surface);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 16px;
+  right: 16px;
 }
 
-.fa-solid::before {
+.logout-button .material-symbols-outlined {
   font-size: 20px;
-}
-.fa-pen::before {
-  font-size: 15px;
 }
 
 .settings-list {
@@ -91,6 +95,15 @@
 .settings-value {
   display: flex;
   align-items: center;
+}
+
+.settings-value[title] {
+  text-decoration: underline dotted rgba(0, 0, 0, 0.4);
+  cursor: help;
+}
+
+:host-context(.dark-theme) .settings-value[title] {
+  text-decoration-color: rgba(255, 255, 255, 0.4);
 }
 
 .settings-dropdown-icon {
@@ -174,4 +187,36 @@
 
 .edit-icon i {
   font-size: 16px;
+}
+
+.edit-icon .material-symbols-outlined {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 400px) {
+  .settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .settings-value {
+    align-self: flex-start;
+  }
+  
+  .profile-card {
+    position: relative;
+    padding-top: 36px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profile-picture {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
 }

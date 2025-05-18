@@ -6,11 +6,12 @@ import {forkJoin} from 'rxjs';
 import {addDays, format, startOfWeek} from 'date-fns';
 import {Chart, ChartConfiguration, ChartData} from 'chart.js/auto';
 import {AuthService} from '../../core/services/auth.service';
+import {ArrowButtonComponent} from '../../shared/arrow-button/arrow-button.component';
 
 @Component({
   selector: 'app-bills',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ArrowButtonComponent],
   templateUrl: './bills.component.html',
   styleUrls: ['./bills.component.css']
 })
@@ -93,10 +94,9 @@ export class BillsComponent implements OnInit {
         this.categories = data.categories;
         this.generateWeekData();
 
-        // Initialize chart after data is loaded
         setTimeout(() => {
           this.initChart();
-        }, 0);
+        }, 10);
       },
       error: (err) => {
         console.error('Error fetching data', err);
@@ -171,11 +171,6 @@ export class BillsComponent implements OnInit {
     return category ? category.name : 'Unknown Category';
   }
 
-  getCategoryColor(categoryId: number): string {
-    const category = this.categories.find(c => c.id === categoryId);
-    return category ? category.color : '#808080';
-  }
-
   get currentWeekBills(): Bill[] {
     const weekDatesFormatted = this.currentWeekDates.map(date =>
       format(date, 'dd-MM-yyyy')
@@ -184,5 +179,9 @@ export class BillsComponent implements OnInit {
     return this.bills.filter(bill =>
       weekDatesFormatted.includes(bill.date)
     );
+  }
+
+  get currencySymbol(): string {
+    return localStorage.getItem('currencySymbol') || '€';
   }
 }

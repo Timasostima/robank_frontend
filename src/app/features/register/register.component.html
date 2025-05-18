@@ -1,11 +1,7 @@
 <div class="signup-container">
   <div class="signup-card">
     <div class="header">
-      <button (click)="goBack()" class="back-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+      <app-arrow-button direction="left" (click)="goBack()"></app-arrow-button>
       <div class="logo-container">
         <img src="Robank_Logo.png" alt="Robank Logo" class="logo" />
       </div>

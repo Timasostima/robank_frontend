@@ -42,6 +42,17 @@ export class AuthService {
     return user;
   }
 
+  async fetchUserPreferences(): Promise<any> {
+    const url = `${this.BASE_URL}/preferences`;
+
+    try {
+      return await firstValueFrom(this.http.get<any>(url));
+    } catch (error) {
+      console.error('Error fetching user preferences:', error);
+      throw error;
+    }
+  }
+
   async register(email: string, password: string) {
     const user = await createUserWithEmailAndPassword(this.auth, email, password);
     return user;
@@ -53,9 +64,13 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
-    localStorage.removeItem('pfp');
+    const isDarkTheme = localStorage.getItem('isdarktheme');
+    localStorage.clear();
+    
+    if (isDarkTheme) {
+      localStorage.setItem('isdarktheme', isDarkTheme);
+    }
+
     return signOut(this.auth);
   }
 

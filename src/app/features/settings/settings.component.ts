@@ -119,4 +119,16 @@ export class SettingsComponent implements OnInit {
         alert("Failed to send password reset link. Please try again.");
       });
   }
+
+  get currency(): string {
+    return localStorage.getItem('currency') || 'USD';
+  }
+
+  get language(): string {
+    return localStorage.getItem('language') || 'en';
+  }
+
+  get notificationsEnabled(): boolean {
+    return localStorage.getItem('notifications') === 'true';
+  }
 }

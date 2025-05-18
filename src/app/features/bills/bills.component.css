@@ -34,25 +34,6 @@ h1 {
   margin-bottom: 16px;
 }
 
-.nav-button {
-  background-color: var(--surface);
-  border: 1px solid rgba(189, 189, 255, 0.2);
-  border-radius: 8px;
-  color: var(--primary);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-
-.nav-button:hover {
-  background-color: rgba(189, 189, 255, 0.1);
-  border-color: var(--primary);
-}
-
 .week-title {
   font-size: 20px;
   font-weight: 500;

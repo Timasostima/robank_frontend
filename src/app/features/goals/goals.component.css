@@ -71,27 +71,17 @@ h1 {
   padding: 15px;
 }
 
-.goal-name {
-  margin: 0 0 5px 0;
-  font-size: 18px;
-  color: var(--on-surface);
-}
-
-.goal-price {
-  margin: 0;
-  font-size: 16px;
-  color: var(--primary);
-  font-weight: bold;
-}
-
-.goal-progress {
-  padding: 10px 0 0 0;
-}
-
 .goal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.goal-header > * {
+  margin: 0;
+  font-size: 16px;
+  color: var(--on-surface);
+  font-weight: bold;
 }
 
 .progress-bar {
@@ -103,6 +93,6 @@ h1 {
 .progress-fill {
   height: 100%;
   background-color: var(--primary);
-  width: 50%; /* Example width */
+  width: 50%;
   transition: width 0.3s ease;
 }
