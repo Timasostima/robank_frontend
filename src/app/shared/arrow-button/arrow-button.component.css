@@ -1,0 +1,18 @@
+.arrow-button {
+  background-color: var(--surface);
+  border: 1px solid rgba(189, 189, 255, 0.2);
+  border-radius: 8px;
+  color: var(--primary);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.arrow-button:hover {
+  background-color: rgba(189, 189, 255, 0.1);
+  border-color: var(--primary);
+}
