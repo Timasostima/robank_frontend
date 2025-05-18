@@ -6,10 +6,11 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword, sendPasswordResetEmail
 } from '@angular/fire/auth';
 import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ import {HttpClient} from '@angular/common/http';
 export class AuthService {
   private auth = inject(Auth);
   private http = inject(HttpClient);
-  private BASE_URL = 'http://localhost:8080/user';
+  private BASE_URL = `${environment.apiUrl}/bills`;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
@@ -102,5 +103,12 @@ export class AuthService {
       console.error('Error checking new user:', error);
       throw error;
     }
+  }
+
+  async resetPassword(email: string): Promise<void> {
+    if (!email) {
+      throw new Error('Email is required to reset the password.');
+    }
+    await sendPasswordResetEmail(this.auth, email);
   }
 }

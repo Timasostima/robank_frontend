@@ -127,16 +127,6 @@ Aplicación web Angular para el sistema Robank de gestión de finanzas personale
 > [!TIP]
 > Para personalizar los temas, modifica las variables CSS en `src/styles.css`
 
-### Despliegue
-
-```bash
-# Compilar para producción
-npm run build
-
-# Desplegar con Firebase (opcional)
-firebase deploy
-```
-
 > [!CAUTION]
 > Asegúrate de configurar correctamente las variables de entorno para producción.
 

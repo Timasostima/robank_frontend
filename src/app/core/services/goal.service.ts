@@ -14,7 +14,7 @@ export interface Goal {
   providedIn: 'root'
 })
 export class GoalService {
-  private apiUrl = environment.apiUrl + '/goals';
+  private apiUrl = `${environment.apiUrl}/goals`;
 
   constructor(private http: HttpClient) {}
 

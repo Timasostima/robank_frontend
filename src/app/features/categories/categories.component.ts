@@ -54,8 +54,7 @@ export class CategoriesComponent implements OnInit {
         this.processData(results.categories, results.bills);
         this.loading = false;
 
-        // Delay chart initialization to ensure DOM is ready
-        setTimeout(() => this.initChart(), 0);
+        setTimeout(() => this.initChart(), 10);
       },
       error: (error) => {
         this.loading = false;
