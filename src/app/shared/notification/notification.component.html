@@ -1,0 +1,5 @@
+<div *ngIf="message" class="notification"
+     [ngClass]="{ 'error': type === 'error', 'success': type === 'success', 'fade-out': isFadingOut }">
+  <span>{{ message }}</span>
+  <button class="close-btn" (click)="clearMessage()">×</button>
+</div>
