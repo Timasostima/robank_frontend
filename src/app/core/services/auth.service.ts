@@ -6,7 +6,7 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword, sendPasswordResetEmail
+  createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile, sendEmailVerification
 } from '@angular/fire/auth';
 import {BehaviorSubject, firstValueFrom, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -38,7 +38,13 @@ export class AuthService {
   }
 
   async logIn(email: string, password: string) {
-    const user = await signInWithEmailAndPassword(this.auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+    const user = userCredential.user;
+
+    if (!user.emailVerified) {
+      throw new Error('Email not verified. Please verify your email before logging in.');
+    }
+
     return user;
   }
 
@@ -53,8 +59,18 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string) {
-    const user = await createUserWithEmailAndPassword(this.auth, email, password);
+  async register(email: string, password: string, displayName: string) {
+    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+    const user = userCredential.user;
+
+    // Sign the user out immediately after registration
+    await signOut(this.auth);
+
+    await sendEmailVerification(user);
+
+    // Update the user's displayName
+    await updateProfile(user, {displayName});
+
     return user;
   }
 
@@ -66,7 +82,7 @@ export class AuthService {
   logout() {
     const isDarkTheme = localStorage.getItem('isdarktheme');
     localStorage.clear();
-    
+
     if (isDarkTheme) {
       localStorage.setItem('isdarktheme', isDarkTheme);
     }

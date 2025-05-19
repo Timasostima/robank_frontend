@@ -3,7 +3,7 @@
     <div class="header">
       <app-arrow-button direction="left" (click)="goBack()"></app-arrow-button>
       <div class="logo-container">
-        <img src="Robank_Logo.png" alt="Robank Logo" class="logo" />
+        <img src="Robank_Logo.png" alt="Robank Logo" class="logo"/>
       </div>
       <div class="spacer"></div>
     </div>
@@ -15,8 +15,12 @@
           formControlName="email"
           placeholder="email"
           class="input-field"
-          [ngClass]="{'error-input': submitted && form['email'].errors}"
+          [ngClass]="{'error-input': form['email'].errors}"
         />
+        <div *ngIf="form['email'].errors" class="error-message">
+          <span *ngIf="form['email'].errors?.['required']">Email is required.</span>
+          <span *ngIf="form['email'].errors?.['pattern']">Enter a valid email address.</span>
+        </div>
       </div>
 
       <div class="input-container">
@@ -25,7 +29,7 @@
           formControlName="password"
           placeholder="password"
           class="input-field"
-          [ngClass]="{'error-input': submitted && form['password'].errors}"
+          [ngClass]="{'error-input': form['password'].errors}"
         />
         <button
           type="button"
@@ -35,11 +39,32 @@
           <span *ngIf="showPassword" class="material-symbols-outlined">visibility</span>
           <span *ngIf="!showPassword" class="material-symbols-outlined">visibility_off</span>
         </button>
+        <div *ngIf="form['password'].errors" class="error-message">
+          <span *ngIf="form['password'].errors?.['required']">Password is required.</span>
+          <span *ngIf="form['password'].errors?.['minlength']">Password must be at least 6 characters.</span>
+          <span *ngIf="form['password'].errors?.['maxlength']">Password cannot exceed 20 characters.</span>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <input
+          type="text"
+          formControlName="username"
+          placeholder="username"
+          class="input-field"
+          [ngClass]="{'error-input': form['username'].errors}"
+        />
+        <div *ngIf="form['username'].errors" class="error-message">
+          <span *ngIf="form['username'].errors?.['required']">Username is required.</span>
+          <span *ngIf="form['username'].errors?.['minlength']">Username must be at least 3 characters.</span>
+          <span *ngIf="form['username'].errors?.['maxlength']">Username cannot exceed 20 characters.</span>
+        </div>
       </div>
 
       <div class="terms-container">
         <app-switch (toggle)="form['acceptTerms'].setValue($event)"></app-switch>
-        <span class="terms-text">I Accept the <a routerLink="/terms" class="terms-link">Terms and Conditions</a></span>
+        <span class="terms-text">I Accept the <a routerLink="/terms"
+                                                 class="terms-link">Terms and Conditions</a></span>
       </div>
 
       <button
@@ -52,3 +77,9 @@
     </form>
   </div>
 </div>
+
+<app-notification
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  type="error"
+></app-notification>

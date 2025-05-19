@@ -3,11 +3,12 @@ import {CommonModule} from "@angular/common";
 import {SwitchComponent} from '../../shared/switch/switch.component';
 import {AuthService} from '../../core/services/auth.service';
 import {PopupComponent} from '../../shared/popup/popup.component';
+import {NotificationComponent} from '../../shared/notification/notification.component';
 
 @Component({
   selector: "app-settings",
   standalone: true,
-  imports: [CommonModule, SwitchComponent, PopupComponent],
+  imports: [CommonModule, SwitchComponent, PopupComponent, NotificationComponent],
   templateUrl: "settings.component.html",
   styleUrls: ["settings.component.css"],
 })
@@ -21,6 +22,7 @@ export class SettingsComponent implements OnInit {
 
   selectedFile: File | null = null;
   uploadMessage: string | null = null;
+  errorMessage: string = '';
 
   async ngOnInit() {
     this.userName = localStorage.getItem('name');
@@ -111,12 +113,14 @@ export class SettingsComponent implements OnInit {
     this.authService
       .resetPassword(this.userEmail)
       .then(() => {
-        alert("Password reset link sent to your email.");
         this.closePopup();
+        alert("Password reset link sent to your email.");
       })
       .catch((err) => {
-        console.error("Failed to send password reset link:", err);
-        alert("Failed to send password reset link. Please try again.");
+        this.errorMessage = '';  // Reset the error message
+        setTimeout(() => {
+          this.errorMessage = 'Failed to send password reset link. Please try again.';
+        });
       });
   }
 

@@ -5,11 +5,12 @@ import { Router, RouterLink } from "@angular/router"
 import {AuthService} from '../../core/services/auth.service';
 import {SwitchComponent} from '../../shared/switch/switch.component';
 import {ArrowButtonComponent} from '../../shared/arrow-button/arrow-button.component';
+import { NotificationComponent } from '../../shared/notification/notification.component';
 
 @Component({
   selector: "app-register",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, SwitchComponent, ArrowButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, SwitchComponent, ArrowButtonComponent, NotificationComponent],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })
@@ -17,6 +18,7 @@ export class RegisterComponent {
   signupForm: FormGroup
   submitted = false
   showPassword = false
+  errorMessage: string = '';
   private authService = inject(AuthService)
 
   constructor(
@@ -24,8 +26,9 @@ export class RegisterComponent {
     private router: Router,
   ) {
     this.signupForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["", [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      username: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       acceptTerms: [false, Validators.requiredTrue],
     })
   }
@@ -51,18 +54,24 @@ export class RegisterComponent {
 
     console.log("Email:", this.form["email"].value, "Password:", this.form["password"].value);
 
-    this.authService.register(this.form["email"].value, this.form["password"].value)
-      .then(response => {
-        console.log('Registered:', response);
+    this.authService.register(this.form["email"].value, this.form["password"].value, this.form["username"].value)
+      .then(user => {
+        console.log('Registered:', user);
         let usrObj = {
-          uid: response.user.uid,
-          email: response.user.email,
-          name: response.user.displayName || "alex",
+          uid: user.uid,
+          email: user.email,
+          name: user.email || "alex",
         };
         this.authService.registerBackend(usrObj).then(rb =>
           alert("User registered successfully")
         )
       })
-      .catch(err => console.error("Registration failed", err));
+      .catch(err => {
+        console.error("Registration failed", err);
+        this.errorMessage = '';  // Reset the error message
+        setTimeout(() => {
+          this.errorMessage = err.message || 'Registration failed. Please try again.';
+        });
+      });
   }
 }

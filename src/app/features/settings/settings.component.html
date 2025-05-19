@@ -76,3 +76,9 @@
   >
     <p>Do you want to reset your password?</p>
   </app-popup>
+
+  <app-notification
+    *ngIf="errorMessage"
+    [message]="errorMessage"
+    type="error"
+  ></app-notification>

@@ -5,11 +5,12 @@ import {Router, RouterLink} from "@angular/router"
 import {AuthService} from '../../core/services/auth.service';
 import {routes} from '../../app.routes';
 import {PopupComponent} from '../../shared/popup/popup.component';
+import {NotificationComponent} from '../../shared/notification/notification.component';
 
 @Component({
   selector: "app-login",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PopupComponent, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, PopupComponent, FormsModule, NotificationComponent],
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"],
 })
@@ -19,12 +20,17 @@ export class LoginComponent {
   showPassword = false;
   isPopupOpen = false;
   resetEmail = "";
+  errorMessage: string = "";
   authService = inject(AuthService);
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
+    // this.loginForm = this.formBuilder.group({
+    //   email: ["", [Validators.required, Validators.email]],
+    //   password: ["", [Validators.required, Validators.minLength(6)]],
+    // });
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]],
+      email: [""],
+      password: [""],
     });
   }
 
@@ -45,10 +51,10 @@ export class LoginComponent {
     }
 
     this.authService.logIn(this.form["email"].value, this.form["password"].value)
-      .then(async response => {
-        console.log('Firebase login successful:', response)
-        localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
-        localStorage.setItem('email', response.user.email || 'Unknown');
+      .then(async user => {
+        console.log('Firebase login successful:', user)
+        localStorage.setItem('name', user.displayName || user.email?.split("@")[0] || 'Unknown');
+        localStorage.setItem('email', user.email || 'Unknown');
 
         try {
           const preferences = await this.authService.fetchUserPreferences();
@@ -58,9 +64,16 @@ export class LoginComponent {
           this.setDefaultPreferences();
         }
 
+        alert("Login successful!");
         this.router.navigate(['/dashboard'])
       })
-      .catch(err => console.error("Login failed", err));
+      .catch((err) => {
+        console.error('Login failed', err);
+        this.errorMessage = ''; // Reset the error message
+        setTimeout(() => {
+          this.errorMessage = err.message; // Set the new error message
+        });
+      });
   }
 
   private storePreferences(preferences: any): void {
@@ -116,37 +129,38 @@ export class LoginComponent {
   }
 
   LoginGoogle() {
-  this.authService.LogInWithGoogle()
-    .then(async (response) => {
-      const exists = await this.authService.checkNewUser(response.user.uid);
-      if (!exists) {
-        const usrObj = {
-          uid: response.user.uid,
-          email: response.user.email,
-          name: response.user.displayName || "alex",
-        };
-        await this.authService.registerBackend(usrObj);
-        if (response.user.photoURL) {
-          await this.authService.uploadImageUrl(response.user.photoURL);
+    this.authService.LogInWithGoogle()
+      .then(async (response) => {
+        const exists = await this.authService.checkNewUser(response.user.uid);
+        if (!exists) {
+          const usrObj = {
+            uid: response.user.uid,
+            email: response.user.email,
+            name: response.user.displayName || "alex",
+          };
+          await this.authService.registerBackend(usrObj);
+          if (response.user.photoURL) {
+            await this.authService.uploadImageUrl(response.user.photoURL);
+          }
         }
-      }
 
-      localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
-      localStorage.setItem('email', response.user.email || 'Unknown');
+        localStorage.setItem('name', response.user.displayName || response.user.email?.split("@")[0] || 'Unknown');
+        localStorage.setItem('email', response.user.email || 'Unknown');
 
-      // Fetch and store preferences
-      try {
-        const preferences = await this.authService.fetchUserPreferences();
-        this.storePreferences(preferences);
-      } catch (error) {
-        console.error('Error fetching preferences:', error);
-        this.setDefaultPreferences();
-      }
+        // Fetch and store preferences
+        try {
+          const preferences = await this.authService.fetchUserPreferences();
+          this.storePreferences(preferences);
+        } catch (error) {
+          console.error('Error fetching preferences:', error);
+          this.setDefaultPreferences();
+        }
 
-      this.router.navigate(['/dashboard']);
-    })
-    .catch((err) => console.error("Login with Google failed", err));
-}
+        alert("Google login successful!");
+        await this.router.navigate(['/dashboard']);
+      })
+      .catch((err) => console.error("Login with Google failed", err));
+  }
 
   openForgotPasswordPopup() {
     this.isPopupOpen = true;
@@ -159,19 +173,18 @@ export class LoginComponent {
 
   sendPasswordReset() {
     if (!this.resetEmail) {
-      alert("Please enter a valid email.");
+      this.errorMessage = "Please enter a valid email.";  // Use notification instead of alert
       return;
     }
 
-    this.authService
-      .resetPassword(this.resetEmail)
+    this.authService.resetPassword(this.resetEmail)
       .then(() => {
-        alert("Password reset link sent to your email.");
+        this.errorMessage = "";
         this.closePopup();
+        alert("Password reset link sent to your email.")
       })
       .catch((err) => {
-        console.error("Failed to send password reset link:", err);
-        alert("Failed to send password reset link. Please try again.");
+        this.errorMessage = "Failed to send password reset link. Please try again.";
       });
   }
 }

@@ -1,7 +1,7 @@
 <div class="login-container">
   <div class="login-card">
     <div class="logo-container">
-      <img src="Robank_Logo.png" alt="Robank Logo" class="logo" />
+      <img src="Robank_Logo.png" alt="Robank Logo" class="logo"/>
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
@@ -79,3 +79,9 @@
     />
   </div>
 </app-popup>
+
+<app-notification
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  type="error"
+></app-notification>
