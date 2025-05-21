@@ -47,67 +47,52 @@ npm install
 npm start
 ```
 
-> [!TIP]
-> Consulta los README individuales de cada componente para obtener instrucciones detalladas de instalación y configuración.
-
-## Robank Frontend
-
-![Robank Logo](robank_frontend/public/Robank_Logo_Small.png)
 
 Aplicación web Angular para el sistema Robank de gestión de finanzas personales.
 
-### Estructura
+## 📱 Características
 
-```
-└── src/
-    ├── app/
-    │   ├── core/           # Servicios e interceptores
-    │   ├── features/       # Módulos principales
-    │   │   ├── dashboard/  # Dashboard principal
-    │   │   ├── categories/ # Gestión de categorías
-    │   │   ├── bills/      # Gestión de gastos
-    │   │   ├── login/      # Autenticación
-    │   │   └── settings/   # Preferencias
-    │   ├── shared/         # Componentes reutilizables
-    │   └── app.component.ts
-    └── assets/             # Recursos estáticos
-```
+- **Diseño moderno y responsive**: Interfaz adaptada a todos los dispositivos
+- **Tema claro/oscuro**: Personalización visual mediante variables CSS
+- **Dashboard analítico**: Visualización de gastos con gráficos interactivos
+- **Categorización de gastos**: Organización personalizable
+- **Gestión de metas financieras**: Seguimiento de objetivos con indicadores visuales
+- **Autenticación segura**: Login/registro con email y Google vía Firebase
+- **Localización**: Soporte para español e inglés
 
-### Funcionalidades
+## 🛠️ Tecnologías
 
-- **Interfaz Elegante**: Diseño moderno y responsive
-- **Temas**: Soporte para tema claro y oscuro
-- **Dashboard Analítico**: Gráficos para análisis de gastos
-- **Gestión de Gastos**: Organización por categorías
-- **Autenticación**: Sistema seguro de login/registro
-- **Diseño Responsive**: Enfoque mobile-first
+- **Angular 19**: Framework principal con soporte para componentes standalone
+- **TypeScript**: Tipado estático para desarrollo robusto
+- **Chart.js**: Visualización de datos financieros
+- **Firebase Authentication**: Gestión segura de usuarios
+- **CSS Variables**: Sistema de temas personalizable
+- **Material Symbols & Font Awesome**: Iconografía moderna
 
-> [!IMPORTANT]
-> La aplicación requiere conexión al backend para funcionar correctamente.
+## 🚀 Instalación
 
-### Tecnologías
-
-- Angular 19
-- Firebase Authentication
-- Chart.js para visualización
-- Variables CSS para temas
-- Material Symbols
-
-### Requisitos
+### Prerrequisitos
 
 - Node.js 18+
 - NPM 8+
+- Backend Robank en ejecución
 
-### Instalación
+### Pasos para desarrollo local
 
-1. Clonar el repositorio
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/Timasostima/robank_frontend.git
+   cd robank_frontend
+   ```
+
 2. Instalar dependencias:
    ```bash
    npm install
    ```
+
 3. Configurar variables de entorno:
+   Crear/editar `src/environments/environment.ts`:
    ```typescript
-   // environment.ts
    export const environment = {
      production: false,
      apiUrl: 'http://localhost:8080/api',
@@ -119,26 +104,46 @@ Aplicación web Angular para el sistema Robank de gestión de finanzas personale
      }
    };
    ```
+
 4. Iniciar servidor de desarrollo:
    ```bash
    npm start
    ```
+   La aplicación estará disponible en `http://localhost:4200/`
 
-> [!TIP]
-> Para personalizar los temas, modifica las variables CSS en `src/styles.css`
+## 📂 Estructura del proyecto
 
-> [!CAUTION]
-> Asegúrate de configurar correctamente las variables de entorno para producción.
+```
+robank_frontend/
+├── public/                  # Recursos públicos estáticos
+├── src/                     # Código fuente principal
+│   ├── app/                 # Componentes de la aplicación
+│   │   ├── core/            # Servicios, guardias, entornos, etc.
+│   │   ├── features/        # Módulos y componentes de características
+│   │   ├── shared/          # Componentes compartidos
+│   ├── index.html           # Página HTML principal
+│   ├── main.ts              # Punto de entrada
+│   └── styles.css           # Estilos globales
+```
 
-## Autor
+## 📱 Interfaz de Usuario
+
+- **Landing Page**: Presentación de características con secciones responsive
+- **Dashboard**: Panel central con acceso rápido a funcionalidades
+- **Bills**: Visualización temporal de gastos con gráficos
+- **Goals**: Seguimiento visual de objetivos financieros
+- **Settings**: Personalización de preferencias y perfil
+
+## ⚠️ Consideraciones importantes
+
+- La aplicación requiere conexión al backend Robank para funcionalidad completa
+- Es necesario configurar correctamente las claves de Firebase para autenticación
+
+## 👨‍💻 Autor
 
 **Tymur Kulivar Shymanskyi**
 - GitHub: [Timasostima](https://github.com/Timasostima)
 - Email: contact@tymurkulivar.dev
-
-## Licencia
-
-Este proyecto está disponible bajo la Licencia MIT.
 
 ---
 
