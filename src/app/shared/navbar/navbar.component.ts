@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoggedIn = await this.authService.waitForAuthState(); // Wait for auth state
-    console.log("Navbar isLoggedIn:", this.isLoggedIn);
     this.checkScreenSize();
     this.authService.isLoggedIn$.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
@@ -70,7 +69,6 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.authService.logout()
       .then(() => {
-        console.log("User logged out successfully");
         window.location.href = '/login';
       })
       .catch(err => console.error("Logout failed", err));

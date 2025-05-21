@@ -89,7 +89,6 @@ export class SettingsComponent implements OnInit {
   logout() {
     this.authService.logout()
       .then(() => {
-        console.log("User logged out successfully");
         window.location.href = '/login';
       })
       .catch(err => console.error("Logout failed", err));

@@ -52,11 +52,9 @@ export class RegisterComponent {
       return
     }
 
-    console.log("Email:", this.form["email"].value, "Password:", this.form["password"].value);
 
     this.authService.register(this.form["email"].value, this.form["password"].value, this.form["username"].value)
       .then(user => {
-        console.log('Registered:', user);
         let usrObj = {
           uid: user.uid,
           email: user.email,

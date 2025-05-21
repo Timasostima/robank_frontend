@@ -52,7 +52,6 @@ export class LoginComponent {
 
     this.authService.logIn(this.form["email"].value, this.form["password"].value)
       .then(async user => {
-        console.log('Firebase login successful:', user)
         localStorage.setItem('name', user.displayName || user.email?.split("@")[0] || 'Unknown');
         localStorage.setItem('email', user.email || 'Unknown');
 
@@ -94,17 +93,13 @@ export class LoginComponent {
     localStorage.setItem('language', preferences.language || 'en');
     localStorage.setItem('notifications', String(preferences.notifications || false));
 
-    console.log("Pref theme: " + preferences.theme);
     let isDarkTheme = false;
 
     if (preferences.theme === 'system') {
       isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      console.log("System preference is dark: " + isDarkTheme);
     } else {
       isDarkTheme = preferences.theme === 'night';
     }
-
-    console.log("Using dark theme: " + isDarkTheme);
 
     if (isDarkTheme) {
       document.body.classList.add("dark-theme");
