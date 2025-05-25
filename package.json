@@ -6,6 +6,7 @@
     "start": "ng serve",
     "config": "node ./scripts/set-env.js",
     "prebuild": "npm run config",
+    "prestart": "npm run config",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

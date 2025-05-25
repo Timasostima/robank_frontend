@@ -41,8 +41,8 @@ export class BillsComponent implements OnInit {
   };
 
   public barChartOptions: ChartConfiguration['options'] = {
-    responsive: false, // Disable dynamic resizing
-    maintainAspectRatio: false, // Allow custom width/height
+    responsive: false,
+    maintainAspectRatio: false,
     scales: {
       x: {
         grid: {

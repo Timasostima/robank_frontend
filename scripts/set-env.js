@@ -1,14 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-// Path to template and output
 const targetPath = path.resolve(__dirname, '../src/app/core/environments/environment.ts');
 const templatePath = path.resolve(__dirname, '../src/app/core/environments/environment.template.ts');
 
-// Read template file
 const template = fs.readFileSync(templatePath, 'utf8');
 
-// Replace placeholders with environment variables
 const envConfigFile = template
   .replace('${API_URL}', process.env.API_URL || 'http://localhost:8080/api')
   .replace('${FIREBASE_API_KEY}', process.env.FIREBASE_API_KEY || '')
@@ -20,13 +17,11 @@ const envConfigFile = template
   .replace('${FIREBASE_MESSAGING_SENDER_ID}', process.env.FIREBASE_MESSAGING_SENDER_ID || '')
   .replace('${FIREBASE_MEASUREMENT_ID}', process.env.FIREBASE_MEASUREMENT_ID || '');
 
-// Ensure directory exists
 const dirName = path.dirname(targetPath);
 if (!fs.existsSync(dirName)) {
   fs.mkdirSync(dirName, { recursive: true });
 }
 
-// Write environment file
 fs.writeFileSync(targetPath, envConfigFile);
 
 console.log(`Environment file generated at ${targetPath}`);
