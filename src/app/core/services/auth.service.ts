@@ -29,6 +29,17 @@ export class AuthService {
     });
   }
 
+  async checkBackendHealth(): Promise<boolean> {
+    const url = `${environment.apiUrl}/health`;
+    try {
+      const response = await firstValueFrom(this.http.get(url, { observe: 'response' }));
+      return response.status === 200;
+    } catch (error) {
+      console.error('Error checking backend health:', error);
+      return false;
+    }
+  }
+
   async waitForAuthState(): Promise<boolean> {
     return new Promise((resolve) => {
       onAuthStateChanged(this.auth, (user) => {

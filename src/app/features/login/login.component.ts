@@ -63,7 +63,6 @@ export class LoginComponent {
           this.setDefaultPreferences();
         }
 
-        alert("Login successful!");
         this.router.navigate(['/dashboard'])
       })
       .catch((err) => {
