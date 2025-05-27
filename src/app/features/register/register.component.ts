@@ -46,30 +46,45 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    this.submitted = true
+    this.submitted = true;
 
     if (this.signupForm.invalid) {
-      return
+      return;
     }
 
+    this.authService.checkBackendHealth()
+      .then(isHealthy => {
+        if (!isHealthy) {
+          this.resetErrorMessage('Backend is not running. Please try again later.');
+          return;
+        }
 
-    this.authService.register(this.form["email"].value, this.form["password"].value, this.form["username"].value)
-      .then(user => {
-        let usrObj = {
-          uid: user.uid,
-          email: user.email,
-          name: user.email || "alex",
-        };
-        this.authService.registerBackend(usrObj).then(rb =>
-          alert("User registered successfully")
-        )
+        this.authService.register(this.form["email"].value, this.form["password"].value, this.form["username"].value)
+          .then(user => {
+            const usrObj = {
+              uid: user.uid,
+              email: user.email,
+              name: user.email || "alex",
+            };
+            this.authService.registerBackend(usrObj).then(() =>
+              alert("User registered successfully")
+            );
+          })
+          .catch(err => {
+            console.error("Registration failed", err);
+            this.resetErrorMessage(err.message || 'Registration failed. Please try again.');
+          });
       })
       .catch(err => {
-        console.error("Registration failed", err);
-        this.errorMessage = '';  // Reset the error message
-        setTimeout(() => {
-          this.errorMessage = err.message || 'Registration failed. Please try again.';
-        });
+        console.error("Backend health check failed", err);
+        this.resetErrorMessage('Failed to check backend health. Please try again later.');
       });
+  }
+
+  private resetErrorMessage(message: string): void {
+    this.errorMessage = ''; // Clear the message first
+    setTimeout(() => {
+      this.errorMessage = message; // Set the new message
+    });
   }
 }

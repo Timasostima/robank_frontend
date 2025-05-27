@@ -44,34 +44,50 @@ export class LoginComponent {
 
   // Login form
   onSubmit() {
-    this.submitted = true
+    this.submitted = true;
 
     if (this.loginForm.invalid) {
-      return
+      return;
     }
 
-    this.authService.logIn(this.form["email"].value, this.form["password"].value)
-      .then(async user => {
-        localStorage.setItem('name', user.displayName || user.email?.split("@")[0] || 'Unknown');
-        localStorage.setItem('email', user.email || 'Unknown');
-
-        try {
-          const preferences = await this.authService.fetchUserPreferences();
-          this.storePreferences(preferences);
-        } catch (error) {
-          console.error('Error fetching preferences:', error);
-          this.setDefaultPreferences();
+    this.authService.checkBackendHealth()
+      .then(isHealthy => {
+        if (!isHealthy) {
+          this.resetErrorMessage('Backend is not running. Please try again later.');
+          return;
         }
 
-        this.router.navigate(['/dashboard'])
+        this.authService.logIn(this.form["email"].value, this.form["password"].value)
+          .then(async user => {
+            localStorage.setItem('name', user.displayName || user.email?.split("@")[0] || 'Unknown');
+            localStorage.setItem('email', user.email || 'Unknown');
+
+            try {
+              const preferences = await this.authService.fetchUserPreferences();
+              this.storePreferences(preferences);
+            } catch (error) {
+              console.error('Error fetching preferences:', error);
+              this.setDefaultPreferences();
+            }
+
+            this.router.navigate(['/dashboard']);
+          })
+          .catch(err => {
+            console.error('Login failed', err);
+            this.resetErrorMessage(err.message || 'Login failed. Please try again.');
+          });
       })
-      .catch((err) => {
-        console.error('Login failed', err);
-        this.errorMessage = ''; // Reset the error message
-        setTimeout(() => {
-          this.errorMessage = err.message; // Set the new error message
-        });
+      .catch(err => {
+        console.error('Backend health check failed', err);
+        this.resetErrorMessage('Failed to check backend health. Please try again later.');
       });
+  }
+
+  private resetErrorMessage(message: string): void {
+    this.errorMessage = ''; // Clear the message first
+    setTimeout(() => {
+      this.errorMessage = message; // Set the new message
+    });
   }
 
   private storePreferences(preferences: any): void {
